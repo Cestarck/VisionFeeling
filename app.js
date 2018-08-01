@@ -89,6 +89,6 @@ const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
 // Aplicacion levantada
-console.log(chalk.yellow(vacas));
+console.log(chalk.yellow(vacaRandom));
 
 module.exports = app;
