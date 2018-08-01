@@ -1,25 +1,51 @@
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <h4>Login</h4>
+    <form action="/auth/login" method="POST" id="form-container">
+    <img class="card-img-top" src="/images/humanFace.jpg" alt="logo ironhack">
+    <!-- <canvas id="canvas" width="300" height="300"></canvas> -->
+    <!-- TODO implementar la camara en el LOGIN en lugar de la imagen de ironhack     -->
+    <br>
+    <br>
 
-<h2>Login</h2>
+    <div class="input-group input-group-sm mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-sm">Username 2</span>
+      </div>
+      <input type="text" class="form-control" name="username2" id="username2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Enter username">
+    </div>
+    <div class="input-group input-group-sm mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-sm">Email address 2</span>
+      </div>
+      <input type="email" class="form-control" name="email2" id="email2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Enter email">
+    </div>
+    <div class="input-group input-group-sm mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-sm">Password 2</span>
+      </div>
+      <input type="password" class="form-control" name="password2" id="password2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Password">
+    </div>
 
-<form action="/auth/login" method="POST" id="form-container">
-  <label for="username">Username</label>
-  <input id="username" type="text" name="username" placeholder="JonSnow">
+    <small id="usernameHelp" class="form-text text-muted">We'll never share your password with anyone else.</small>
 
-  <br><br>
+    <br>
+    {{#if message }}
+      <div class="alert alert-danger" role="alert">
+        {{ message }}
+      </div>
+    {{/if}}
 
-  <label for="password">Password</label>
-  <input id="password" type="password" name="password" placeholder="Your password">
-  <br>
-  {{#if message }}
-    <div class="error-message">{{ message }}</div>
-  {{/if}}
+    <br>
+    <button type="submit" class="btn btn-primary">Login</button>
+    <br><br>
 
-  <br><br>
-
-  <button>Login</button>
-
-  <p class="account-message">
-    Don't have an account yet?
-    <a href="/auth/signup">Signup</a>
-  </p>
-</form>
+    <p class="account-message">
+      Don't have an account yet?
+      <a href="/auth/signup">Signup</a>
+    </p>
+  </form>
+  </div>
+  <div class="col-md-4"></div>
+</div>

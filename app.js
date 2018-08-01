@@ -18,9 +18,10 @@ const chalk      = require('chalk');
 const vacas      = cows();
 const vacaRandom = vacas[Math.floor(Math.random() * 250)];
 
-//variables de entorno para mongo
+//variables de entorno para conexion a la base de datos mongo
 let userMongo=process.env.USERDB;
 let passMongo=process.env.PASSWORDDB;
+
 mongoose.Promise = Promise;
 mongoose
   .connect('mongodb://'+userMongo+':'+passMongo+'@ds125628.mlab.com:25628/vision_feeling', {useMongoClient: true})
@@ -55,7 +56,6 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
-
 hbs.registerHelper('ifUndefined', (value, options) => {
   if (arguments.length < 2)
       throw new Error("Handlebars Helper ifUndefined needs 1 parameter");
@@ -66,10 +66,8 @@ hbs.registerHelper('ifUndefined', (value, options) => {
   }
 });
 
-
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
-
 
 // Enable authentication using session + passport
 app.use(session({
@@ -80,7 +78,6 @@ app.use(session({
 }))
 app.use(flash());
 require('./passport')(app);
-
 
 const index = require('./routes/index');
 app.use('/', index);
