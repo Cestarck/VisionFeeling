@@ -12,7 +12,12 @@ const path         = require('path');
 const session    = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
-    
+
+const cows       = require('cows');
+const chalk      = require('chalk');
+const vacas      = cows();
+const vacaRandom = vacas[Math.floor(Math.random() * 250)];
+
 //variables de entorno para mongo
 let userMongo=process.env.USERDB;
 let passMongo=process.env.PASSWORDDB;
@@ -43,7 +48,7 @@ app.use(require('node-sass-middleware')({
   dest: path.join(__dirname, 'public'),
   sourceMap: true
 }));
-      
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -60,7 +65,7 @@ hbs.registerHelper('ifUndefined', (value, options) => {
       return options.fn(this);
   }
 });
-  
+
 
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
@@ -75,13 +80,15 @@ app.use(session({
 }))
 app.use(flash());
 require('./passport')(app);
-    
+
 
 const index = require('./routes/index');
 app.use('/', index);
 
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
-      
+
+// Aplicacion levantada
+console.log(chalk.yellow(vacas));
 
 module.exports = app;
