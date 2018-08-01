@@ -13,10 +13,12 @@ const session    = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
     
-
+//variables de entorno para mongo
+let userMongo=process.env.USERDB;
+let passMongo=process.env.PASSWORDDB;
 mongoose.Promise = Promise;
 mongoose
-  .connect('mongodb://localhost/visionfeeling', {useMongoClient: true})
+  .connect('mongodb://'+userMongo+':'+passMongo+'@ds125628.mlab.com:25628/vision_feeling', {useMongoClient: true})
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {
