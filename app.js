@@ -85,6 +85,12 @@ app.use('/', index);
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
+const adminRoutes = require('./routes/admin');
+app.use('/admin', adminRoutes);
+
+const psychRoutes = require('./routes/psych');
+app.use('/psych', psychRoutes);
+
 // Aplicacion levantada
 console.log(chalk.yellow(vacaRandom));
 

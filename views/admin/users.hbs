@@ -1,0 +1,33 @@
+<h1> Usuarios </h1>
+<table class="table table-sm table-dark">
+  <thead>
+    <tr>
+      <th scope="col">username</th>
+      <th scope="col">password</th>
+      <th scope="col">email</th>
+      <th scope="col">role</th>
+      <th scope="col">status</th>
+      <th scope="col">_id</th>
+      <th scope="col">updated_at</th>
+      <th scope="col">created_at</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users as | user | }}
+      {{#if user.status}}
+        <tr class="bg-danger">
+      {{else}}
+        <tr>
+      {{/if}}
+        <th scope="row">{{ user.username }}</th>
+        <td>{{ user.password }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.status }}</td>
+        <td>{{ user._id }}</td>
+        <td>{{ user.updated_at }}</td>
+        <td>{{ user.created_at }}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

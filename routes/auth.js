@@ -33,7 +33,7 @@ authRoutes.post("/signup", (req, res, next) => {
 
   console.log(username,password,email);
   console.log(username2,password2,email2);
-  
+
   if (username === "" || password === "") {
     res.render("auth/signup", { message: "Indicate username and password" });
     return;
@@ -64,7 +64,7 @@ authRoutes.post("/signup", (req, res, next) => {
   });
 });
 
-authRoutes.get("/logout", (req, res) => {
+authRoutes.get("/logout", (req, res, next) => {
   req.logout();
   res.redirect("/");
 });
