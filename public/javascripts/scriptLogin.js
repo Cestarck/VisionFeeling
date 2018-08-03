@@ -1,55 +1,68 @@
-var context;
-var imagen;
-var timer;
-
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM loaded');
-  var canvas    = document.getElementById('canvas');
-  context   = canvas.getContext('2d');
-  let btnstart  = document.getElementById('btnstart');
-  let btnstop   = document.getElementById('btnstop');
-  const video   = document.getElementById('video');
-  imagen = new Image();
-  imagen.src = '/images/humanFace.jpg';
-  btnstart.addEventListener('click', startCamera, false);
-  btnstop.addEventListener('click', stopCamera, false);
-}, false);
+  console.log('Script del Login');
+})
 
-function stopCamera() {
-  console.log('stop camera');
-  draw(canvas.width, canvas.height, video, imagen);
-  clearTimeout(timer);
-  timer = 0;
-  stream.getTracks()[0].stop();
-  if (timer) {
-    clearTimeout(timer);
-    timer = 0;
-  }
-  // if (stream) {
-  //   stream.getTracks()[0].stop();
-  // }
-};
+var imageCapture;
+var mediaStreamPointer;
+var img = new Image();
 
-function startCamera() {
-  console.log('start camera');
-  const constraints = { video: { width: { exact: 250 }, height: { exact: 250 }, }, };
-  navigator.mediaDevices.getUserMedia(constraints).
-    then(handleSuccess).catch(handleError);
+function save() {
+  console.log('save');
+  const canvas = document.querySelector('#grabFrameCanvas');
+  img.src = canvas.toDataURL();
+  document.body.appendChild(img);
+  console.log('save...');
+
+  // Get canvas contents as a data URL
+  var imgAsDataURL = canvas.toDataURL('image/png');
+
+  // Save image into localStorage
+  try { localStorage.setItem('imagen', imgAsDataURL); }
+  catch (e) { console.log("Storage failed: " + e); }
 }
 
-function handleSuccess(stream) {
-  video.srcObject = stream;
-  draw(canvas.width, canvas.height, video, imagen);
+function onGetUserMediaButtonClick() {
+  navigator.mediaDevices.getUserMedia({video: true})
+  .then(mediaStream => {
+    document.querySelector('video').srcObject = mediaStream;
+    const track = mediaStream.getVideoTracks()[0];
+    imageCapture = new ImageCapture(track);
+    mediaStreamPointer = mediaStream;
+  })
+  .catch(error => ChromeSamples.log(error));
 }
 
-function handleError(e) {
-  console.log('Error: ' + e.code);
-};
+function onGrabFrameButtonClick() {
+  imageCapture.grabFrame()
+  .then(imageBitmap => {
+    const canvas = document.querySelector('#grabFrameCanvas');
+    drawCanvas(canvas, imageBitmap);
+  })
+  .catch(error => ChromeSamples.log(error));
+}
 
-function draw(width, height, video, imagen){
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  context.drawImage(video, 0, 0);
-  context.drawImage(imagen, 0, 0);
-  timer = setTimeout(draw, 250, width, height, video, imagen);
+function onTakePhotoButtonClick() {
+  imageCapture.takePhoto()
+  .then(blob => createImageBitmap(blob))
+  .then(imageBitmap => {
+    const canvas = document.querySelector('#takePhotoCanvas');
+    drawCanvas(canvas, imageBitmap);
+  })
+  .catch(error => ChromeSamples.log(error));
+}
+
+function drawCanvas(canvas, img) {
+  canvas.width = getComputedStyle(canvas).width.split('px')[0];
+  canvas.height = getComputedStyle(canvas).height.split('px')[0];
+  let ratio  = Math.min(canvas.width / img.width, canvas.height / img.height);
+  let x = (canvas.width - img.width * ratio) / 2;
+  let y = (canvas.height - img.height * ratio) / 2;
+  canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+  canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height,
+      x, y, img.width * ratio, img.height * ratio);
+}
+
+function onStop(){
+  const track = mediaStreamPointer.getVideoTracks()[0];
+  track.stop();
 }

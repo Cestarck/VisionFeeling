@@ -4,12 +4,17 @@
     <h4>Login</h4>
     <form action="/auth/login" method="POST" id="form-container">
     <!-- <img class="card-img-top" src="/images/humanFace.jpg" alt="logo ironhack"> -->
-    <div style="text-align: center">
-      <canvas width="250" height="250" id="canvas"></canvas>
-      <video autoplay hidden id='video'></video>
+    <div class="camaraContainer">
+      <video id='video' autoplay hidden></video>
+      <canvas id='grabFrameCanvas'></canvas>
     </div>
-    <button type="button" class="btn btn-primary btn-sm btn-block" id="btnstart">Start</button>
-    <button type="button" class="btn btn-primary btn-sm btn-block" id="btnstop">Stop</button>
+    <button type="button" class="btn btn-primary btn-sm btn-block" onclick="onGetUserMediaButtonClick()">GetUserMedia</button>
+    <button type="button" class="btn btn-primary btn-sm btn-block" onclick="onGrabFrameButtonClick()">GrabFrame</button>
+    <button type="button" class="btn btn-primary btn-sm btn-block" onclick="onStop()">Stop</button>
+    <button type="button" class="btn btn-primary btn-sm btn-block" onclick="save()">Save Image</button>
+    <br><br>
+    <!-- <button type="button" class="btn btn-primary btn-sm btn-block" id="btnstart">Start</button>
+    <button type="button" class="btn btn-primary btn-sm btn-block" id="btnstop">Stop</button> -->
     <br>
     <br>
     <div class="input-group input-group-sm mb-3">
