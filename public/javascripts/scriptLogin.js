@@ -6,12 +6,15 @@ var imageCapture;
 var mediaStreamPointer;
 var img = new Image();
 
+function analizar() {
+
+}
+
 function save() {
   console.log('save');
   const canvas = document.querySelector('#grabFrameCanvas');
   img.src = canvas.toDataURL();
-  document.body.appendChild(img);
-  console.log('save...');
+  // document.body.appendChild(img);
 
   // Get canvas contents as a data URL
   var imgAsDataURL = canvas.toDataURL('image/png');
@@ -19,6 +22,10 @@ function save() {
   // Save image into localStorage
   try { localStorage.setItem('imagen', imgAsDataURL); }
   catch (e) { console.log("Storage failed: " + e); }
+
+  // Save image into Mongo database
+  
+
 }
 
 function onGetUserMediaButtonClick() {

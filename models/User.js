@@ -16,13 +16,3 @@ const userSchema = new Schema({
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
-
-// Foto
-//   -userId - ObjectId
-//   -url    - String
-//   timestamps: {
-//     createdAt: 'created_at',
-
-// Tarea
-//   -userId - ObjectId
-//   -evaluacion - boolean, numeric, enum[Bien,MasOMenos,Mal]

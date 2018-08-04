@@ -8,32 +8,35 @@
       <video id='video' autoplay hidden></video>
       <canvas id='grabFrameCanvas'></canvas>
     </div>
-    <button type="button" class="btn btn-primary btn-sm btn-block" onclick="onGetUserMediaButtonClick()">GetUserMedia</button>
-    <button type="button" class="btn btn-primary btn-sm btn-block" onclick="onGrabFrameButtonClick()">GrabFrame</button>
-    <button type="button" class="btn btn-primary btn-sm btn-block" onclick="onStop()">Stop</button>
-    <button type="button" class="btn btn-primary btn-sm btn-block" onclick="save()">Save Image</button>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <button type="button" class="btn btn-primary btn-sm btn-block" onclick="onGetUserMediaButtonClick()">Prende Camara</button>
+          <button type="button" class="btn btn-primary btn-sm btn-block" onclick="onGrabFrameButtonClick()">Foto</button>
+          <button type="button" class="btn btn-primary btn-sm btn-block" onclick="onStop()">Apaga Camara</button>
+          <button type="button" class="btn btn-primary btn-sm btn-block" onclick="save()">Salvar</button>
+          <button type="button" class="btn btn-primary btn-sm btn-block" onclick="analizar()">Analizar</button>
+        </div>
+      </div>
+    </div>
     <br><br>
-    <!-- <button type="button" class="btn btn-primary btn-sm btn-block" id="btnstart">Start</button>
-    <button type="button" class="btn btn-primary btn-sm btn-block" id="btnstop">Stop</button> -->
-    <br>
-    <br>
     <div class="input-group input-group-sm mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-sm">Username 2</span>
+        <span class="input-group-text" id="inputGroup-sizing-sm">Username</span>
       </div>
-      <input type="text" class="form-control" name="username2" id="username2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Enter username">
+      <input type="text" class="form-control" name="username" id="username" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Enter username">
     </div>
     <div class="input-group input-group-sm mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-sm">Email address 2</span>
+        <span class="input-group-text" id="inputGroup-sizing-sm">Email address</span>
       </div>
-      <input type="email" class="form-control" name="email2" id="email2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Enter email">
+      <input type="email" class="form-control" name="email" id="email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Enter email">
     </div>
     <div class="input-group input-group-sm mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-sm">Password 2</span>
+        <span class="input-group-text" id="inputGroup-sizing-sm">Password</span>
       </div>
-      <input type="password" class="form-control" name="password2" id="password2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Password">
+      <input type="password" class="form-control" name="password" id="password" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Password">
     </div>
 
     <small id="usernameHelp" class="form-text text-muted">We'll never share your password with anyone else.</small>
@@ -46,7 +49,13 @@
     {{/if}}
 
     <br>
-    <button type="submit" class="btn btn-primary btn-block">Login</button>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </div>
+      </div>
+    </div>
     <br><br>
 
     <p class="account-message">

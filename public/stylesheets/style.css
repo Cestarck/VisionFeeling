@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
@@ -7,5 +6,15 @@ a {
 
 .camaraContainer {
   text-align: center; }
+
+.site-footer {
+  background-color: #0A2C42;
+  color: #F7F9F9;
+  margin-top: 15px;
+  padding-top: 15px;
+  background-color: #0A2C42;
+  position: fixed;
+  bottom: 0;
+  width: 100%; }
 
 /*# sourceMappingURL=style.css.map */

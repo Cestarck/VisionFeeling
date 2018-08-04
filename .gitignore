@@ -6,3 +6,6 @@ npm-debug.log
 
 # Environment Variables should NEVER be published
 .env
+
+#credenciales de acceso a google vision API
+credenciales/

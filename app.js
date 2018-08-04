@@ -93,5 +93,5 @@ app.use('/psych', psychRoutes);
 
 // Aplicacion levantada
 console.log(chalk.yellow(vacaRandom));
-
+console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 module.exports = app;
