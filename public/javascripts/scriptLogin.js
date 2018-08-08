@@ -17,7 +17,10 @@ function save() {
   var imgAsDataURL = canvas.toDataURL('image/png');
 
   // Save image into localStorage
-  try { localStorage.setItem('imagen', imgAsDataURL); }
+  try { localStorage.setItem('imagen', imgAsDataURL); 
+
+  //cloudinary.createUploader().upload(imgAsDataURL);
+}
   catch (e) { console.log("Storage failed: " + e); }
 }
 

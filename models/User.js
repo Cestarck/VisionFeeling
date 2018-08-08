@@ -2,10 +2,15 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 const userSchema = new Schema({
+  //idUser
   username: String,
   password: String,
+  name: String,
+  lastName: String,
+  age: Number,
+  sex: String,
   email: String,
-  role: String,
+  role: String, 
   photo: String,
   status: Boolean
 }, {
@@ -17,13 +22,3 @@ const userSchema = new Schema({
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
-
-// Foto
-//   -userId - ObjectId
-//   -url    - String
-//   timestamps: {
-//     createdAt: 'created_at',
-
-// Tarea
-//   -userId - ObjectId
-//   -evaluacion - boolean, numeric, enum[Bien,MasOMenos,Mal]

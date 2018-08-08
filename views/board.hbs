@@ -1,0 +1,17 @@
+<form action="/board" method="POST" id="form-container">
+    <div class="camaraContainer">
+        
+    </div>
+    <video id='video' autoplay hidden></video>
+        <canvas name='grabFrameCanvas' id='grabFrameCanvas'></canvas>
+    <button type="button" class="btn btn-primary btn-sm btn-block" onclick="onGetUserMediaButtonClick()">GetUserMedia</button>
+    <button type="button" class="btn btn-primary btn-sm btn-block" onclick="onGrabFrameButtonClick()">GrabFrame</button>
+    <button type="button" class="btn btn-primary btn-sm btn-block" onclick="onStop()">Stop</button>
+    <button type="button" class="btn btn-primary btn-sm btn-block" onclick="save()">Save Image</button>
+    <br><br>
+    <input type="text" class="form-control" name="username2" id="username2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Enter username">
+    <br>
+    <button type="submit" class="btn btn-primary btn-block">Send</button>
+    <br><br>
+</form>
+<script type="text/javascript" src='/javascripts/scriptLogin.js'></script>
