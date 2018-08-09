@@ -17,3 +17,6 @@ const pictureSchema = new Schema({
       updatedAt: 'updated_at'
     }
   });
+
+  const Picture =mongoose.model('Picture',pictureSchema);
+  module.exports=Picture;

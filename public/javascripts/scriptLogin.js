@@ -11,11 +11,14 @@ function save() {
   const canvas = document.querySelector('#grabFrameCanvas');
   img.src = canvas.toDataURL();
   document.body.appendChild(img);
+  document.getElementById("imagen1").src=img.src;
+  document.getElementById("imgUrl").value=img.src;
   console.log('save...');
 
   // Get canvas contents as a data URL
   var imgAsDataURL = canvas.toDataURL('image/png');
-
+  
+console.log(imgAsDataURL);
   // Save image into localStorage
   try { localStorage.setItem('imagen', imgAsDataURL); 
 
