@@ -12,16 +12,17 @@ router.get('/board', (req, res, next) => {
 router.post('/board', (req, res, next) => {
   console.log(req.body.imgUrl);
   const imgURI=req.body.imgUrl;
-  cloudinary.uploader.upload(imgURI, function(result) { 
-  console.log(result); 
-});
+  cloudinary.uploader.upload(imgURI, function(result) {
+    console.log(result);
+    res.render('index');
+  });
 })
 router.post('/board/:imgAsDataURL', (req, res, next) => {
   const imgURI=req.params.imgAsDataURL;
   console.log(req.params.imgAsDataURL);
-  cloudinary.uploader.upload(imgURI, function(result) { 
-  console.log("Resut"+result+"Result"); 
-});
+  cloudinary.uploader.upload(imgURI, function(result) {
+    console.log("Resut"+result+"Result");
+  });
 })
 
 module.exports = router;
