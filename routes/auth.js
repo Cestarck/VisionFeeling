@@ -11,12 +11,16 @@ authRoutes.get("/login", (req, res, next) => {
   res.render("auth/login", { "message": req.flash("error") });
 });
 
-authRoutes.post("/login",passport.authenticate("local", {
-  successRedirect: "/board",
+authRoutes.post('/login',passport.authenticate('local',{
   failureRedirect: "/auth/login",
   failureFlash: true,
   passReqToCallback: true
-}));
+  }),
+  function(req, res) {
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    res.render("auth/login", { "message": req.user.username + 'succesfull' });
+});
 
 authRoutes.get("/signup", (req, res, next) => {
   res.render("auth/signup");

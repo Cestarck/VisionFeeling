@@ -30,7 +30,6 @@ function camara(){
       img.src = canvas.toDataURL();
       // Get canvas contents as a data URL
       var imgAsDataURL = canvas.toDataURL('image/png');
-
     })
     .catch(error => ChromeSamples.log(error));
 
