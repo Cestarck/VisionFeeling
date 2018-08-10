@@ -1,64 +1,42 @@
+console.log('Script del Login');
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Script del Login');
+
 })
 
 var imageCapture;
 var mediaStreamPointer;
 var img = new Image();
 
-function save() {
-  console.log('save');
-  const canvas = document.querySelector('#grabFrameCanvas');
-  img.src = canvas.toDataURL();
-  // document.body.appendChild(img);
-  // document.body.appendChild(img);
-  document.getElementById("imagen1").src = img.src;
-  document.getElementById("imgUrl").value = img.src;
-  console.log('save...');
-
-  // Get canvas contents as a data URL
-  var imgAsDataURL = canvas.toDataURL('image/png');
-
-  console.log(imgAsDataURL);
-  // Save image into localStorage
-  try {
-    localStorage.setItem('imagen', imgAsDataURL);
-  //cloudinary.createUploader().upload(imgAsDataURL);
-  }
-  catch (e) { console.log("Storage failed: " + e); }
-
-  // Save image into Mongo database
-
-}
-
-function onGetUserMediaButtonClick() {
+function camara(){
   navigator.mediaDevices.getUserMedia({video: true})
   .then(mediaStream => {
+
+    // PRENDER LA CAMARA
     document.querySelector('video').srcObject = mediaStream;
     const track = mediaStream.getVideoTracks()[0];
     imageCapture = new ImageCapture(track);
     mediaStreamPointer = mediaStream;
-  })
-  .catch(error => ChromeSamples.log(error));
-}
 
-function onGrabFrameButtonClick() {
-  imageCapture.grabFrame()
-  .then(imageBitmap => {
-    const canvas = document.querySelector('#grabFrameCanvas');
-    drawCanvas(canvas, imageBitmap);
-  })
-  .catch(error => ChromeSamples.log(error));
-}
+    // GRABAR LA IMAGEN EN EL CANVAS
+    imageCapture.grabFrame()
+    .then(imageBitmap => {
 
-function onTakePhotoButtonClick() {
-  imageCapture.takePhoto()
-  .then(blob => createImageBitmap(blob))
-  .then(imageBitmap => {
-    const canvas = document.querySelector('#takePhotoCanvas');
-    drawCanvas(canvas, imageBitmap);
+      const canvas = document.querySelector('#grabFrameCanvas');
+      drawCanvas(canvas, imageBitmap);
+      const track = mediaStreamPointer.getVideoTracks()[0];
+      track.stop();
+
+      // GRABAR EL CANVAS EN UNA IMAGEN
+      img.src = canvas.toDataURL();
+      // Get canvas contents as a data URL
+      var imgAsDataURL = canvas.toDataURL('image/png');
+
+    })
+    .catch(error => ChromeSamples.log(error));
+
   })
   .catch(error => ChromeSamples.log(error));
+  console.log('Fin prende Camara');
 }
 
 function drawCanvas(canvas, img) {
@@ -70,9 +48,4 @@ function drawCanvas(canvas, img) {
   canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
   canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height,
       x, y, img.width * ratio, img.height * ratio);
-}
-
-function onStop(){
-  const track = mediaStreamPointer.getVideoTracks()[0];
-  track.stop();
 }
