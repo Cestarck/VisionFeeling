@@ -14,13 +14,24 @@ function save() {
   console.log('save');
   const canvas = document.querySelector('#grabFrameCanvas');
   img.src = canvas.toDataURL();
+<<<<<<< HEAD
   // document.body.appendChild(img);
+=======
+  document.body.appendChild(img);
+  document.getElementById("imagen1").src=img.src;
+  document.getElementById("imgUrl").value=img.src;
+  console.log('save...');
+>>>>>>> cesar
 
   // Get canvas contents as a data URL
   var imgAsDataURL = canvas.toDataURL('image/png');
-
+  
+console.log(imgAsDataURL);
   // Save image into localStorage
-  try { localStorage.setItem('imagen', imgAsDataURL); }
+  try { localStorage.setItem('imagen', imgAsDataURL); 
+
+  //cloudinary.createUploader().upload(imgAsDataURL);
+}
   catch (e) { console.log("Storage failed: " + e); }
 
   // Save image into Mongo database
