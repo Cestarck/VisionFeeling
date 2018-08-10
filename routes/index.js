@@ -39,12 +39,6 @@ router.post('/board', (req, res, next) => {
   });
 });
 })
-router.post('/board/:imgAsDataURL', (req, res, next) => {
-  const imgURI=req.params.imgAsDataURL;
-  console.log(req.params.imgAsDataURL);
-  cloudinary.uploader.upload(imgURI, function(result) { 
-  console.log("Resut"+result+"Result"); 
-});
-})
+
 
 module.exports = router;
