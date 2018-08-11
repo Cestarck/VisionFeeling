@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const pictureSchema = new Schema({
-    idAssignedTaskSchema = [ { type : Schema.Types.ObjectId, ref: 'AssignedTask' } ],
+    idFeelingSession: [ { type : Schema.Types.ObjectId, ref: 'FeelingSession' } ],
+    idAssignedTaskSchema: [ { type : Schema.Types.ObjectId, ref: 'AssignedTask' } ],
     public_id: String,
     version: Number,//1312461204,
     width: Number,//864,
