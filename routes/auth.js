@@ -1,24 +1,31 @@
-const express = require("express");
-const passport = require('passport');
-const authRoutes = express.Router();
-const User = require("../models/User");
+const express      = require("express");
+const passport     = require('passport');
+const cloudinary   = require('cloudinary');
+const authRoutes   = express.Router();
+const User         = require("../models/User");
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
-
 authRoutes.get("/login", (req, res, next) => {
   res.render("auth/login", { "message": req.flash("error") });
 });
 
-authRoutes.post("/login",passport.authenticate("local", {
-  
-  successRedirect: "/board",
+authRoutes.post('/login',passport.authenticate('local',{
   failureRedirect: "/auth/login",
   failureFlash: true,
   passReqToCallback: true
-}));
+  }),
+  function(req, res) {
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    const imgURI = req.body.imgUrl;
+    cloudinary.uploader.upload(imgURI, function(result) {
+      console.log(result);
+      res.render('index');
+    });
+});
 
 authRoutes.get("/signup", (req, res, next) => {
   res.render("auth/signup");
@@ -28,14 +35,8 @@ authRoutes.post("/signup", (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   const email = req.body.email;
-  const username2 = req.body.username2;
-  const password2 = req.body.password2;
-  const email2 = req.body.email2;
-  
 
   console.log(username,password,email);
-  console.log(username2,password2,email2);//,frameCanvas);
-  
 
   if (username === "" || password === "") {
     res.render("auth/signup", { message: "Indicate username and password" });

@@ -2,57 +2,42 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('Script del Login');
 })
 
+const vgaConstraints = {
+  video: {
+    width: { exact: 320 },
+    height: { exact: 240 },
+  },
+};
+
 var imageCapture;
 var mediaStreamPointer;
 var img = new Image();
+var track;
 
-function save() {
-  console.log('save');
-  const canvas = document.querySelector('#grabFrameCanvas');
-  img.src = canvas.toDataURL();
-  document.body.appendChild(img);
-  document.getElementById("imagen1").src=img.src;
-  document.getElementById("imgUrl").value=img.src;
-  console.log('save...');
-
-  // Get canvas contents as a data URL
-  var imgAsDataURL = canvas.toDataURL('image/png');
-  
-console.log(imgAsDataURL);
-  // Save image into localStorage
-  try { localStorage.setItem('imagen', imgAsDataURL); 
-
-  //cloudinary.createUploader().upload(imgAsDataURL);
-}
-  catch (e) { console.log("Storage failed: " + e); }
-}
-
-function onGetUserMediaButtonClick() {
-  navigator.mediaDevices.getUserMedia({video: true})
+function camara(){
+  console.log('camara');
+  navigator.mediaDevices.getUserMedia(vgaConstraints)
   .then(mediaStream => {
     document.querySelector('video').srcObject = mediaStream;
-    const track = mediaStream.getVideoTracks()[0];
+    track = mediaStream.getVideoTracks()[0];
     imageCapture = new ImageCapture(track);
     mediaStreamPointer = mediaStream;
-  })
-  .catch(error => ChromeSamples.log(error));
-}
+    imageCapture.grabFrame()
+    .then(imageBitmap => {
+      const canvas = document.querySelector('#grabFrameCanvas');
+      drawCanvas(canvas, imageBitmap);
+      track.stop();
+      // SAVE Image
+      console.log('save');
+      img.src = canvas.toDataURL();
+      // document.getElementById("imagen1").src = img.src;
+      document.getElementById("imgUrl").value = img.src;
 
-function onGrabFrameButtonClick() {
-  imageCapture.grabFrame()
-  .then(imageBitmap => {
-    const canvas = document.querySelector('#grabFrameCanvas');
-    drawCanvas(canvas, imageBitmap);
-  })
-  .catch(error => ChromeSamples.log(error));
-}
-
-function onTakePhotoButtonClick() {
-  imageCapture.takePhoto()
-  .then(blob => createImageBitmap(blob))
-  .then(imageBitmap => {
-    const canvas = document.querySelector('#takePhotoCanvas');
-    drawCanvas(canvas, imageBitmap);
+      // Get canvas contents as a data URL
+      var imgAsDataURL = canvas.toDataURL('image/png');
+      console.log(imgAsDataURL);
+    })
+    .catch(error => ChromeSamples.log(error));
   })
   .catch(error => ChromeSamples.log(error));
 }
@@ -66,9 +51,4 @@ function drawCanvas(canvas, img) {
   canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
   canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height,
       x, y, img.width * ratio, img.height * ratio);
-}
-
-function onStop(){
-  const track = mediaStreamPointer.getVideoTracks()[0];
-  track.stop();
 }

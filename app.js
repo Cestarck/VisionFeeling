@@ -34,10 +34,10 @@ mongoose
   }).catch(err => {
     console.error('Error connecting to mongo', err)
   });
-  cloudinary.config({ 
-    cloud_name: cloudinaryName, 
-    api_key: cloudinaryApiKey, 
-    api_secret: cloudinarySecret 
+  cloudinary.config({
+    cloud_name: cloudinaryName,
+    api_key: cloudinaryApiKey,
+    api_secret: cloudinarySecret
   });
 
 const app_name = require('./package.json').name;
@@ -93,12 +93,13 @@ app.use('/', index);
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
+const adminRoutes = require('./routes/admin');
+app.use('/admin', adminRoutes);
+
 const psychRoutes = require('./routes/psych');
 app.use('/psych', psychRoutes);
 
-const adminRoutes = require('./routes/admin');
-app.use('/admin',adminRoutes);
 // Aplicacion levantada
 console.log(chalk.yellow(vacaRandom));
-
+// console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 module.exports = app;
