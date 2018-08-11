@@ -3,8 +3,12 @@ const passport     = require('passport');
 const cloudinary   = require('cloudinary');
 const authRoutes   = express.Router();
 const User         = require("../models/User");
+<<<<<<< HEAD
 const FeelingSession = require("../models/FeelingSession");
 const Picture = require("../models/Picture");
+=======
+
+>>>>>>> cd28ab109ec7008325083a9207277a9ff10dad6c
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
@@ -22,6 +26,7 @@ authRoutes.post('/login',passport.authenticate('local',{
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
     const imgURI = req.body.imgUrl;
+<<<<<<< HEAD
     const username = req.body.username;
     
     User.findOne({ username }, "username", (err, user) => {
@@ -67,6 +72,12 @@ authRoutes.post('/login',passport.authenticate('local',{
         }
       });
     }); 
+=======
+    cloudinary.uploader.upload(imgURI, function(result) {
+      console.log(result);
+      res.render('index');
+    });
+>>>>>>> cd28ab109ec7008325083a9207277a9ff10dad6c
 });
 
 authRoutes.get("/signup", (req, res, next) => {
