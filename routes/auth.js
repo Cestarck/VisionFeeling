@@ -3,11 +3,6 @@ const passport     = require('passport');
 const cloudinary   = require('cloudinary');
 const authRoutes   = express.Router();
 const User         = require("../models/User");
-<<<<<<< HEAD
-const FeelingSession = require("../models/FeelingSession");
-const Picture = require("../models/Picture");
-=======
->>>>>>> 9db1083299ad59f1a1341ed071762bfce44bf743
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
@@ -25,58 +20,10 @@ authRoutes.post('/login',passport.authenticate('local',{
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
     const imgURI = req.body.imgUrl;
-<<<<<<< HEAD
-    const username = req.body.username;
-    
-    User.findOne({ username }, "username", (err, user) => {
-      const idUser =user._id;
-      //console.log(idUser);
-      const newFeelingSession = new FeelingSession({
-        idUser: idUser
-
-      });
-  
-      newFeelingSession.save((err,object) => {
-        if (err) {
-          res.render("auth/", { message: "Something went wrong" });
-        } else {
-          console.log(object);
-          cloudinary.uploader.upload(imgURI, function(result) {
-            //console.log(result);
-            //res.render('index');
-            
-            
-              const newPicture = new Picture({
-                idFeelingSession: object._id,
-                public_id: result.public_id,
-                version: result.version,
-                width: result.width,
-                height: result.height,
-                format: result.format,
-                bytes: result.bytes,
-                url: result.url,
-                secure_url: result.secure_url
-                  });
-                  newPicture.save((err)=>{
-                    if(err){
-                      console.log(err);
-                    }else{
-                      res.redirect("/");
-                    }
-                  })
-              
-            
-            
-          }); 
-        }
-      });
-    }); 
-=======
     cloudinary.uploader.upload(imgURI, function(result) {
       console.log(result);
       res.render('index');
     });
->>>>>>> 9db1083299ad59f1a1341ed071762bfce44bf743
 });
 
 authRoutes.get("/signup", (req, res, next) => {
