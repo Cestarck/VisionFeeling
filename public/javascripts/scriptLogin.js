@@ -1,41 +1,45 @@
-console.log('Script del Login');
 document.addEventListener('DOMContentLoaded', () => {
-
+  console.log('Script del Login');
 })
+
+const vgaConstraints = {
+  video: {
+    width: { exact: 320 },
+    height: { exact: 240 },
+  },
+};
 
 var imageCapture;
 var mediaStreamPointer;
 var img = new Image();
+var track;
 
 function camara(){
-  navigator.mediaDevices.getUserMedia({video: true})
+  console.log('camara');
+  navigator.mediaDevices.getUserMedia(vgaConstraints)
   .then(mediaStream => {
-
-    // PRENDER LA CAMARA
     document.querySelector('video').srcObject = mediaStream;
-    const track = mediaStream.getVideoTracks()[0];
+    track = mediaStream.getVideoTracks()[0];
     imageCapture = new ImageCapture(track);
     mediaStreamPointer = mediaStream;
-
-    // GRABAR LA IMAGEN EN EL CANVAS
     imageCapture.grabFrame()
     .then(imageBitmap => {
-
       const canvas = document.querySelector('#grabFrameCanvas');
       drawCanvas(canvas, imageBitmap);
-      const track = mediaStreamPointer.getVideoTracks()[0];
       track.stop();
-
-      // GRABAR EL CANVAS EN UNA IMAGEN
+      // SAVE Image
+      console.log('save');
       img.src = canvas.toDataURL();
+      // document.getElementById("imagen1").src = img.src;
+      document.getElementById("imgUrl").value = img.src;
+
       // Get canvas contents as a data URL
       var imgAsDataURL = canvas.toDataURL('image/png');
+      console.log(imgAsDataURL);
     })
     .catch(error => ChromeSamples.log(error));
-
   })
   .catch(error => ChromeSamples.log(error));
-  console.log('Fin prende Camara');
 }
 
 function drawCanvas(canvas, img) {

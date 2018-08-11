@@ -1,5 +1,6 @@
 const express      = require("express");
 const passport     = require('passport');
+const cloudinary   = require('cloudinary');
 const authRoutes   = express.Router();
 const User         = require("../models/User");
 
@@ -19,7 +20,11 @@ authRoutes.post('/login',passport.authenticate('local',{
   function(req, res) {
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
-    res.render("auth/login", { "message": req.user.username + 'succesfull' });
+    const imgURI = req.body.imgUrl;
+    cloudinary.uploader.upload(imgURI, function(result) {
+      console.log(result);
+      res.render('index');
+    });
 });
 
 authRoutes.get("/signup", (req, res, next) => {
