@@ -47,3 +47,10 @@ a {
 button:hover, a:hover {
   opacity: 0.7;
 }
+div.hidden{
+  visibility: hidden;
+}
+
+div.show{
+  visibility: visible;
+}
