@@ -1,7 +1,9 @@
+const User         = require("../models/User");
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const faceAnnotationSchema =  new Schema({
+        idUser: [ { type : Schema.Types.ObjectId, ref: 'User' } ],
         idFeelingSession: [ { type : Schema.Types.ObjectId, ref: 'FeelingSession' } ],
         joyLikelihood: String,
         sorrowLikelihood: String,

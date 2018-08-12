@@ -61,7 +61,7 @@ authRoutes.post(
               if (err) {
                 console.log(err);
               } else {
-                evaluatePicture(result.url,object._id,res);
+                evaluatePicture(result.url, object._id, idUser, res);
                 //res.redirect("/");
               }
             });
@@ -72,7 +72,7 @@ authRoutes.post(
   }
 );
 
-let evaluatePicture = function(url, idSession, res) {
+let evaluatePicture = function(url, idSession, inIdUser, res) {
   client
     .faceDetection(url)
     .then(results => {
@@ -87,6 +87,7 @@ let evaluatePicture = function(url, idSession, res) {
         console.log(`    Sorrow: ${face.sorrowLikelihood}`);
         console.log(`    Surprise: ${face.surpriseLikelihood}`);
         const newFaceAnnotation=new FaceAnnotation({
+          idUser: inIdUser,
           idFeelingSession: idSession,
           joyLikelihood: face.joyLikelihood,
           sorrowLikelihood: face.sorrowLikelihood,
@@ -100,7 +101,7 @@ let evaluatePicture = function(url, idSession, res) {
           if (err) {
             console.log(err);
           } else {
-            
+
             res.redirect("/");
           }
         });

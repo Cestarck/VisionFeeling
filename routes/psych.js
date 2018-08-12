@@ -3,6 +3,7 @@ const passport  = require('passport');
 const psychRoutes = express.Router();
 const User = require("../models/User");
 const FeelingSession = require("../models/FeelingSession");
+const FaceAnnotation = require("../models/FaceAnnotation");
 
 var resultados;
 
@@ -31,10 +32,10 @@ psychRoutes.get("/user-list-profiles", (req, res, next)=>{
 
 psychRoutes.get('/user-list-profile/:id', (req, res, next) => {
   let userId = req.params.id;
-  FeelingSession.find({idUser: userId})
-    .then(feelingSessions => {
-      console.log(feelingSessions);
-      res.render("psych/user-list-profile-detail", { feelingSessions });
+  FaceAnnotation.find({idUser: userId})
+    .then(faceAnnotations => {
+      console.log(faceAnnotations);
+      res.render("psych/user-list-profile-detail", { faceAnnotations });
     })
     .catch(error => {
       console.log(error)
