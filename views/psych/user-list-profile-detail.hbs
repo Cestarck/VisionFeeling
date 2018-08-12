@@ -1,0 +1,28 @@
+<h1> Detalle de usuario y sus sesiones </h1>
+
+<table class="table table-sm table-dark">
+  <thead>
+    <tr>
+      <th scope="col">joyLikelihood</th>
+      <th scope="col">sorrowLikelihood</th>
+      <th scope="col">angerLikelihood</th>
+      <th scope="col">surpriseLikelihood</th>
+      <th scope="col">underExposedLikelihood</th>
+      <th scope="col">blurredLikelihood</th>
+      <th scope="col">headwearLikelihood</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each faceAnnotations as | faceAnnotation | }}        
+        <td>{{ faceAnnotation.joyLikelihood }}</td>
+        <td>{{ faceAnnotation.sorrowLikelihood }}</td>
+        <td>{{ faceAnnotation.angerLikelihood }}</td>
+        <td>{{ faceAnnotation.surpriseLikelihood }}</td>
+        <td>{{ faceAnnotation.underExposedLikelihood }}</td>
+        <td>{{ faceAnnotation.blurredLikelihood }}</td>
+        <td>{{ faceAnnotation.headwearLikelihood }}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+<a href="/">Home</a>
