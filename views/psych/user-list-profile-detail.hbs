@@ -1,0 +1,22 @@
+<h1> Detalle de usuario y sus sesiones </h1>
+
+<table class="table table-sm table-dark">
+  <thead>
+    <tr>
+      <th scope="col">username</th>
+      <th scope="col">email</th>
+      <th scope="col">role</th>
+      <th scope="col">_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each feelingSessions as | feelingSession | }}
+        <th scope="row">{{ feelingSession.idUser }}</th>
+        <td>{{ feelingSession.idPicture }}</td>
+        <td>{{ feelingSession.idUser }}</td>
+        <td> <a href="user-list-profile/{{this._id}}"> {{ this._id }} </a> </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+<a href="/">Home</a>

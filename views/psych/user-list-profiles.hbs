@@ -1,5 +1,25 @@
-<div class="userlist">
-    {{#each users}}
-        {{this.username}}
+<h1> Usuarios </h1>
+<table class="table table-sm table-dark">
+  <thead>
+    <tr>
+      <th scope="col">username</th>
+      <th scope="col">email</th>
+      <th scope="col">role</th>
+      <th scope="col">_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users as | user | }}
+      {{#if user.status}}
+        <tr class="bg-danger">
+      {{else}}
+        <tr>
+      {{/if}}
+        <th scope="row">{{ user.username }}</th>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td> <a href="user-list-profile/{{this._id}}"> {{ user._id }} </a> </td>        
+      </tr>
     {{/each}}
-</div>
+  </tbody>
+</table>
