@@ -7,6 +7,7 @@ const FeelingSession = require("../models/FeelingSession");
 const Picture = require("../models/Picture");
 const vision = require("@google-cloud/vision");
 const FaceAnnotation = require("../models/FaceAnnotation");
+const Psychologist = require("../models/Psychologist");
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
@@ -119,6 +120,7 @@ authRoutes.post("/signup", (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   const email = req.body.email;
+  const role = req.body.role;
 
   console.log(username, password, email);
 
@@ -139,14 +141,36 @@ authRoutes.post("/signup", (req, res, next) => {
     const newUser = new User({
       username,
       password: hashPass,
-      role: "teacher"
+      role: role
     });
 
-    newUser.save(err => {
+    newUser.save((err,user) => {
       if (err) {
         res.render("auth/signup", { message: "Something went wrong" });
       } else {
-        res.redirect("/");
+        if(role.includes('psychologist')){
+          const medicalLicenseNumber=req.body.medicalLicenseNumber;
+          const university1=req.body.university1;
+          const university2=req.body.university2;
+          const experience=req.body.experience;
+          const newPsychologist = new Psychologist({
+            idUser: user._id,
+            medicalLicenseNumber: medicalLicenseNumber,
+            university1: university1,
+            university2: university1,
+            experience: experience
+          });
+          newPsychologist.save(err => {
+            if (err) {
+              console.log(err);
+            } else {
+              
+              res.redirect("/");
+            }
+          });
+        }else{
+    
+        }
       }
     });
   });
