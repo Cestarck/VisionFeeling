@@ -1,33 +1,37 @@
 <h1> Usuarios </h1>
-<table class="table table-sm table-dark">
-  <thead>
+<table class="table table-sm">
+  <thead class="thead-dark">
     <tr>
-      <th scope="col">username</th>
-      <th scope="col">password</th>
       <th scope="col">email</th>
       <th scope="col">role</th>
       <th scope="col">status</th>
-      <th scope="col">_id</th>
       <th scope="col">updated_at</th>
       <th scope="col">created_at</th>
+      <th>DETALLES</th>
+      <th>EDITAR</th>
+      <th>ELIMINAR</th>
+      <th scope="col">password</th>
     </tr>
   </thead>
   <tbody>
     {{#each users as | user | }}
       {{#if user.status}}
-        <tr class="bg-danger">
-      {{else}}
         <tr>
+      {{else}}
+        <tr class="bg-danger">
       {{/if}}
-        <th scope="row">{{ user.username }}</th>
-        <td>{{ user.password }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.role }}</td>
-        <td>{{ user.status }}</td>
-        <td>{{ user._id }}</td>
+        <td>{{ user.status }}</td>        
         <td>{{ user.updated_at }}</td>
         <td>{{ user.created_at }}</td>
+        <th scope="row"><a href="/admin/user/{{this._id}}">{{this.username}}</a></th>
+        <td><a href="/admin/users/edit?user_id={{this._id}}" class="edit-button">EDIT</a></td>
+        <td><a href="/admin/users/delete?user_id={{this._id}}" class="delete-button">DELETE</a></td>
+        <td>{{ user.password }}</td>
       </tr>
     {{/each}}
   </tbody>
 </table>
+<br>
+<a href="/">Return</a>

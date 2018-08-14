@@ -7,16 +7,20 @@ a {
   color: #00B7FF;
 }
 
+.formulario{
+  padding-top: 5rem;
+}
+
 .camaraContainer{
   text-align: center;
 }
 
 .site-header{
-  background-color: #0A2C42;
+  background-color: #0BAED7;
   color: #F7F9F9;
 }
 .site-footer{
-  background-color: #0A2C42;
+  background-color: #0BAED7;
   color: #000000;
   margin-top: 15px;
   padding-top: 15px;
@@ -53,4 +57,21 @@ div.hidden{
 
 div.show{
   visibility: visible;
+}
+
+.edit-button {
+  margin-left:20px;
+  color: #fff;
+  text-decoration: none;
+  padding: 2px 4px;
+  background-color: grey;
+  border-radius: 6px;
+}
+.delete-button {
+  margin-left:20px;
+  color: #fff;
+  text-decoration: none;
+  padding: 2px 4px;
+  background-color: red;
+  border-radius: 6px;
 }

@@ -23,7 +23,7 @@ psychRoutes.get("/analizar", (req, res, next) => {
 });
 
 psychRoutes.get("/user-list-profiles", (req, res, next)=>{
-  User.find({role : "teacher"})
+  User.find({role : "user"})
     .then(users => {
       console.log(users);
       res.render("psych/user-list-profiles", { users });

@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <form action="/admin/users/edit?user_id={{user._id}}" method="post" class="formulario">
+  <div class="input-group input-group-sm mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-sm">Username</span>
+    </div>
+    <input type="text" class="form-control" name="username" id="username" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{user.username}}">
+  </div>
+
+  <div class="input-group input-group-sm mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-sm">Email:</span>
+    </div>
+    <input type="text" class="form-control" name="email" id="email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{user.email}}">
+  </div>
+
+  <div class="input-group input-group-sm mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-sm">Role</span>
+    </div>
+    <input type="text" class="form-control" name="role" id="role" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{user.role}}">
+  </div>
+
+  <div class="input-group input-group-sm mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-sm">Status</span>
+    </div>
+    <input type="text" class="form-control" name="status" id="status" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{user.status}}">
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <button type="submit" class="btn btn-primary btn-block">EDIT</button>
+      </div>
+    </div>
+  </div>
+</form>
+  </div>
+  <div class="col-md-4"></div>
+</div>
