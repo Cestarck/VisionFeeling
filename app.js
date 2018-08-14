@@ -75,7 +75,7 @@ hbs.registerHelper('ifUndefined', (value, options) => {
 });
 
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+app.locals.title = 'Express';
 
 // Enable authentication using session + passport
 app.use(session({
@@ -99,6 +99,8 @@ app.use('/admin', adminRoutes);
 const psychRoutes = require('./routes/psych');
 app.use('/psych', psychRoutes);
 
+const userRoutes = require('./routes/user');
+app.use('/user', userRoutes);
 // Aplicacion levantada
 console.log(chalk.yellow(vacaRandom));
 // console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS);
