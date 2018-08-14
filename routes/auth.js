@@ -14,13 +14,13 @@ const bcryptSalt = 10;
 // Creates a client for Vision API
 const client = new vision.ImageAnnotatorClient();
 // Performs label detection on the image file
-
+const checkPsychologist  = checkRoles('psychologist');
+const checkUser = checkRoles('user');
 authRoutes.get("/login", (req, res, next) => {
   res.render("auth/login", { message: req.flash("error") });
 });
 
-authRoutes.post(
-  "/login",
+authRoutes.post("/login",
   passport.authenticate("local", {
     failureRedirect: "/auth/login",
     failureFlash: true,
@@ -64,7 +64,15 @@ authRoutes.post(
               } else {
                 evaluatePicture(result.url, object._id, idUser, res);
                 //res.redirect("/");
-              }
+                if (req.isAuthenticated() && req.user.role === 'psychologist') {
+      
+                  res.redirect("/psych/user-list-profiles");
+                
+              }else if(req.isAuthenticated() && req.user.role === 'user'){
+                res.redirect("/user/board");
+              }else{
+                res.redirect('/auth/login');
+              }}
             });
           });
         }
@@ -82,11 +90,11 @@ let evaluatePicture = function(url, idSession, inIdUser, res) {
 
       console.log("Faces:");
       faces.forEach((face, i) => {
-        console.log(`  Face #${i + 1}:`);
-        console.log(`    Joy: ${face.joyLikelihood}`);
-        console.log(`    Anger: ${face.angerLikelihood}`);
-        console.log(`    Sorrow: ${face.sorrowLikelihood}`);
-        console.log(`    Surprise: ${face.surpriseLikelihood}`);
+        //console.log(`  Face #${i + 1}:`);
+        //console.log(`    Joy: ${face.joyLikelihood}`);
+        //console.log(`    Anger: ${face.angerLikelihood}`);
+        //console.log(`    Sorrow: ${face.sorrowLikelihood}`);
+        //console.log(`    Surprise: ${face.surpriseLikelihood}`);
         const newFaceAnnotation=new FaceAnnotation({
           idUser: inIdUser,
           idFeelingSession: idSession,
@@ -101,10 +109,7 @@ let evaluatePicture = function(url, idSession, inIdUser, res) {
         newFaceAnnotation.save(err => {
           if (err) {
             console.log(err);
-          } else {
-
-            res.redirect("/");
-          }
+          } ////////////
         });
       });
     })
@@ -170,16 +175,45 @@ authRoutes.post("/signup", (req, res, next) => {
             }
           });
         }else{
-    
+          res.redirect("/");
         }
       }
     });
   });
 });
 
+
 authRoutes.get("/logout", (req, res, next) => {
   req.logout();
-  res.redirect("/");
+  res.redirect("/auth/login");
 });
+
+function checkRoles(role) {
+  
+  return function(req, res, next) {
+    console.log(req.user.role)
+    if (req.isAuthenticated() && req.user.role === role) {
+      
+      return next();
+    } else {
+      res.redirect('/auth/login')
+    }
+  }
+}
+
+function firstViewRoles() {
+  console.log("firs view");
+  return function(req, res, next) {
+    console.log(req.user.role)
+    if (req.isAuthenticated() && req.user.role === 'psychologist') {
+      
+        res.redirect("/psych/user-list-profiles");
+      
+    }else if(req.isAuthenticated() && req.user.role === 'user'){
+      res.redirect("/user/board");
+    }else{
+      res.redirect('/auth/login');
+    }
+}}
 
 module.exports = authRoutes;

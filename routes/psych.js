@@ -6,7 +6,8 @@ const FeelingSession = require("../models/FeelingSession");
 const FaceAnnotation = require("../models/FaceAnnotation");
 
 var resultados;
-
+const checkPsychologist  = checkRoles('psychologist');
+const checkUser = checkRoles('user');
 psychRoutes.get("/dashboard", (req, res, next) => {
   User.find({})
     .then(users => {
@@ -22,15 +23,15 @@ psychRoutes.get("/analizar", (req, res, next) => {
     });
 });
 
-psychRoutes.get("/user-list-profiles", (req, res, next)=>{
-  User.find({role : "teacher"})
+psychRoutes.get("/user-list-profiles", checkPsychologist,(req, res, next)=>{
+  User.find({role : "user"})
     .then(users => {
       console.log(users);
       res.render("psych/user-list-profiles", { users });
     });
 });
 
-psychRoutes.get('/user-list-profile/:id', (req, res, next) => {
+psychRoutes.get('/user-list-profile/:id', checkPsychologist,(req, res, next) => {
   let userId = req.params.id;
   FaceAnnotation.find({idUser: userId})
     .then(faceAnnotations => {
@@ -217,5 +218,16 @@ var getSurpriseStock=function(faceAnnotations){
     }
     return surpriseStock;    
 }
-
+function checkRoles(role) {
+  
+  return function(req, res, next) {
+    console.log(req.user.role)
+    if (req.isAuthenticated() && req.user.role === role) {
+      
+      return next();
+    } else {
+      res.redirect('/auth/login')
+    }
+  }
+}
 module.exports = psychRoutes;
