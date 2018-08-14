@@ -1,25 +1,29 @@
-<h1> Usuarios </h1>
-<table class="table table-sm table-dark">
-  <thead>
+<h1> Users </h1>
+<table class="table table-sm">
+  <thead class="thead-dark">
     <tr>
-      <th scope="col">username</th>
       <th scope="col">email</th>
       <th scope="col">role</th>
-      <th scope="col">_id</th>
+      <th scope="col">status</th>
+      <th scope="col">updated_at</th>
+      <th>DETALLES</th>
     </tr>
   </thead>
   <tbody>
     {{#each users as | user | }}
       {{#if user.status}}
-        <tr class="bg-danger">
-      {{else}}
         <tr>
+      {{else}}
+        <tr class="table-danger">
       {{/if}}
-        <th scope="row">{{ user.username }}</th>
         <td>{{ user.email }}</td>
         <td>{{ user.role }}</td>
-        <td> <a href="user-list-profile/{{this._id}}"> {{ user._id }} </a> </td>        
+        <td>{{ user.status }}</td>
+        <td>{{ user.updated_at }}</td>
+        <th scope="row"><a href="user-list-profile/{{user._id}}">{{user.username}}</a></th>
       </tr>
     {{/each}}
   </tbody>
 </table>
+<br>
+<a href="/">Return</a>
