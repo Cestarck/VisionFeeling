@@ -1,21 +1,26 @@
-const express = require("express");
-const passport = require("passport");
-const cloudinary = require("cloudinary");
-const authRoutes = express.Router();
-const User = require("../models/User");
-const FeelingSession = require("../models/FeelingSession");
-const Picture = require("../models/Picture");
-const vision = require("@google-cloud/vision");
-const FaceAnnotation = require("../models/FaceAnnotation");
-const Psychologist = require("../models/Psychologist");
+const express         = require("express");
+const passport        = require("passport");
+const vision          = require("@google-cloud/vision");
+const cloudinary      = require("cloudinary");
+
+const User            = require("../models/User");
+const FeelingSession  = require("../models/FeelingSession");
+const Picture         = require("../models/Picture");
+const FaceAnnotation  = require("../models/FaceAnnotation");
+const Psychologist    = require("../models/Psychologist");
+
+const authRoutes  = express.Router();
+
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
+
 // Creates a client for Vision API
 const client = new vision.ImageAnnotatorClient();
-// Performs label detection on the image file
-const checkPsychologist  = checkRoles('psychologist');
-const checkUser = checkRoles('user');
+
+const checkPsychologist   = checkRoles('psychologist');
+const checkUser           = checkRoles('user');
+
 authRoutes.get("/login", (req, res, next) => {
   res.render("auth/login", { message: req.flash("error") });
 });
@@ -32,21 +37,22 @@ authRoutes.post("/login",
     const imgURI = req.body.imgUrl;
     const username = req.body.username;
 
-    User.findOne({ username }, "username", (err, user) => {
+    User.findOne({
+      username
+    }, "username", (err, user) => {
       const idUser = user._id;
-      //console.log(idUser);
       const newFeelingSession = new FeelingSession({
         idUser: idUser
       });
 
       newFeelingSession.save((err, object) => {
         if (err) {
-          res.render("auth/", { message: "Something went wrong" });
+          res.render("auth/", {
+            message: "Something went wrong"
+          });
         } else {
           console.log(object);
           cloudinary.uploader.upload(imgURI, function(result) {
-            //console.log(result);
-            //res.render('index');
             const newPicture = new Picture({
               idFeelingSession: object._id,
               public_id: result.public_id,
@@ -65,14 +71,15 @@ authRoutes.post("/login",
                 evaluatePicture(result.url, object._id, idUser, res);
                 //res.redirect("/");
                 if (req.isAuthenticated() && req.user.role === 'psychologist') {
-      
+
                   res.redirect("/psych/user-list-profiles");
-                
-              }else if(req.isAuthenticated() && req.user.role === 'user'){
-                res.redirect("/user/board");
-              }else{
-                res.redirect('/auth/login');
-              }}
+
+                } else if (req.isAuthenticated() && req.user.role === 'user') {
+                  res.redirect("/user/board");
+                } else {
+                  res.redirect('/auth/login');
+                }
+              }
             });
           });
         }
@@ -90,12 +97,7 @@ let evaluatePicture = function(url, idSession, inIdUser, res) {
 
       console.log("Faces:");
       faces.forEach((face, i) => {
-        //console.log(`  Face #${i + 1}:`);
-        //console.log(`    Joy: ${face.joyLikelihood}`);
-        //console.log(`    Anger: ${face.angerLikelihood}`);
-        //console.log(`    Sorrow: ${face.sorrowLikelihood}`);
-        //console.log(`    Surprise: ${face.surpriseLikelihood}`);
-        const newFaceAnnotation=new FaceAnnotation({
+        const newFaceAnnotation = new FaceAnnotation({
           idUser: inIdUser,
           idFeelingSession: idSession,
           joyLikelihood: face.joyLikelihood,
@@ -109,7 +111,7 @@ let evaluatePicture = function(url, idSession, inIdUser, res) {
         newFaceAnnotation.save(err => {
           if (err) {
             console.log(err);
-          } ////////////
+          }
         });
       });
     })
@@ -173,7 +175,7 @@ authRoutes.post("/signup", (req, res, next) => {
             if (err) {
               console.log(err);
             } else {
-              
+
               res.redirect("/");
             }
           });
@@ -192,11 +194,11 @@ authRoutes.get("/logout", (req, res, next) => {
 });
 
 function checkRoles(role) {
-  
+
   return function(req, res, next) {
     console.log(req.user.role)
     if (req.isAuthenticated() && req.user.role === role) {
-      
+
       return next();
     } else {
       res.redirect('/auth/login')
@@ -209,9 +211,9 @@ function firstViewRoles() {
   return function(req, res, next) {
     console.log(req.user.role)
     if (req.isAuthenticated() && req.user.role === 'psychologist') {
-      
+
         res.redirect("/psych/user-list-profiles");
-      
+
     }else if(req.isAuthenticated() && req.user.role === 'user'){
       res.redirect("/user/board");
     }else{

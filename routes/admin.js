@@ -14,7 +14,6 @@ adminRoutes.get('/users', (req, res, next) => {
 });
 adminRoutes.get('/user/:id', (req, res, next) => {
   let userId = req.params.id;
-  console.log(userId);
   User.findOne({'_id': userId})
     .then(user => {
       res.render("admin/user-detail", { user });
@@ -22,20 +21,6 @@ adminRoutes.get('/user/:id', (req, res, next) => {
     .catch(error => {
       console.log(error)
     });
-});
-adminRoutes.get('/users/add', (req, res, next) => {
-  res.render("admin/user-add");
-});
-adminRoutes.post('/users/add', (req, res, next) => {
-  const { title, genre, plot } = req.body;
-  const newUser = new User({ title, genre, plot });
-  newUser.save()
-  .then((user) => {
-    res.redirect('/admin/users');
-  })
-  .catch((error) => {
-    console.log(error);
-  });
 });
 adminRoutes.get('/users/edit', (req, res, next) => {
   User.findOne({_id: req.query.user_id})
