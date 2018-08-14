@@ -22,44 +22,44 @@
         </div>
         <input type="password" class="form-control" name="password" id="password" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Password">
       </div>
-      <div>
-        <select id="role" name="role">
-        <option disabled selected value> -- select an option -- </option>
-        <option value="psychologist">Psychologist</option>
-        <option value="user">User</option>
+      <div class="input-group input-group-sm mb-3">
+        <small id="usernameHelp" class="form-text text-muted">We'll never share your password with anyone else.</small>
+      </div>
+      <div class="input-group input-group-sm mb-3">
+        <select id="role" name="role" class="form-control form-control-sm">
+          <option disabled selected value> -- select an option -- </option>
+          <option value="psychologist">Psychologist</option>
+          <option value="user">User</option>
         </select>
       </div>
-      <div id="psychDiv" class="hidden">
-      <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="medicalLicenseNumberSpan">Medical License Number</span>
+
+      <div id="psychDiv" hidden>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="medicalLicenseNumberSpan">Medical License Number</span>
+          </div>
+          <input type="hidden" class="form-control" name="medicalLicenseNumber" id="medicalLicenseNumber" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Enter your Medical License Number">
         </div>
-        <input type="hidden" class="form-control" name="medicalLicenseNumber" id="medicalLicenseNumber" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Enter your Medical License Number">
-      </div>
-      <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-sm">University 1</span>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm">University 1</span>
+          </div>
+          <input type="hidden" class="form-control" name="university1" id="university1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="University">
         </div>
-        <input type="hidden" class="form-control" name="university1" id="university1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="University">
-      </div>
-      <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-sm">University 2</span>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm">University 2</span>
+          </div>
+          <input type="hidden" class="form-control" name="university2" id="university2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="University">
         </div>
-        <input type="hidden" class="form-control" name="university2" id="university2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="University">
-      </div>
-      <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-sm">Experience</span>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Experience</span>
+          </div>
+          <input type="hidden" class="form-control" name="experience" id="experience" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Enter field experience">
         </div>
-        <input type="hidden" class="form-control" name="experience" id="experience" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Enter field experience">
       </div>
 
-      </div>
-
-
-
-      <small id="usernameHelp" class="form-text text-muted">We'll never share your password with anyone else.</small>
       {{#if message }}
         <div class="alert alert-danger" role="alert">
           {{ message }}
