@@ -8,6 +8,7 @@ const Picture = require("../models/Picture");
 const vision = require("@google-cloud/vision");
 const FaceAnnotation = require("../models/FaceAnnotation");
 const Psychologist = require("../models/Psychologist");
+const Student = require("../models/Student");
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
@@ -167,6 +168,33 @@ authRoutes.post("/signup", (req, res, next) => {
             experience: experience
           });
           newPsychologist.save(err => {
+            if (err) {
+              console.log(err);
+            } else {
+              
+              res.redirect("/");
+            }
+          });
+        }else if(role.includes('user')){
+          
+            const idOrganization= null;
+            const registerNumber= 123456;
+            const underTreatment= false;
+            const idPsychologist= null;
+            const enrolledToCourse= false;
+            const idTutor= null;
+            const problematicTopics= "any";          
+            const newStudent = new Student({
+            idUser: user._id,
+            idOrganization: idOrganization,
+            registerNumber: registerNumber,
+            underTreatment: underTreatment,
+            idPsychologist: idPsychologist,
+            enrolledToCourse: enrolledToCourse,
+            idTutor: idTutor,
+            problematicTopics: problematicTopics
+          });
+          newStudent.save(err => {
             if (err) {
               console.log(err);
             } else {

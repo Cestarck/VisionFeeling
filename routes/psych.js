@@ -2,6 +2,7 @@ const express   = require("express");
 const passport  = require('passport');
 const psychRoutes = express.Router();
 const User = require("../models/User");
+const Student = require("../models/Student");
 const FeelingSession = require("../models/FeelingSession");
 const FaceAnnotation = require("../models/FaceAnnotation");
 
@@ -39,10 +40,21 @@ psychRoutes.get('/user-list-profile/:id', checkPsychologist,(req, res, next) => 
       res.locals.sorrowStock=JSON.stringify(getSorrowStock(faceAnnotations));
       res.locals.angerStock=JSON.stringify(getAngerStock(faceAnnotations));
       res.locals.surpriseStock=JSON.stringify(getSurpriseStock(faceAnnotations));
-      res.render("psych/user-list-profile-detail", { faceAnnotations});
+      res.render("psych/user-list-profile-detail", { faceAnnotations, userId});
     })
     .catch(error => {
       console.log(error)
+    });
+});
+psychRoutes.get("/user-list-profile/therapy/:id", checkPsychologist,(req, res, next)=>{
+  let userId=req.params.id;
+console.log(userId);
+  Student.update({idUser : userId}, {$set: {underTreatment: true, idPsychologist: req.user.id }})
+    .then(user => {
+      res.render("user-list-profiles");
+    })
+    .catch((error)=>{
+      console.log(error);
     });
 });
 
