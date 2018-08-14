@@ -61,7 +61,7 @@ psychRoutes.get("/user-list-profile/therapy/:id", checkPsychologist,(req, res, n
 console.log(userId);
   Student.update({idUser : userId}, {$set: {underTreatment: true, idPsychologist: req.user.id }})
     .then(user => {
-      res.render("user-list-profiles");
+      res.redirect("/psych/user-list-profiles");
     })
     .catch((error)=>{
       console.log(error);

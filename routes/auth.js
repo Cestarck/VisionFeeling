@@ -153,7 +153,7 @@ authRoutes.post("/signup", (req, res, next) => {
       password: hashPass,
       role: role,
       status: true,
-      email: 'example@company.com'
+      email: email
     });
 
     newUser.save((err,user) => {
