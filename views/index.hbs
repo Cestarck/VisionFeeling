@@ -8,6 +8,10 @@
 <!-- start landing page caption -->
 <div class='caption center-block text-center'>
 	<h3>SENTIMENT ANALYSIS</h3>
-	<a class='btn btn-primary' href="/auth/login">Login</a>
-  <a class='btn btn-primary' href="/auth/signup">Signup</a>
+	<h3>{{ perfil.role }}</h3>
+	{{#if perfil.role }}		
+	{{else}}
+		<a class='btn btn-primary' href="/auth/login">Login</a>
+  	<a class='btn btn-primary' href="/auth/signup">Signup</a>
+	{{/if}}	
 </div>

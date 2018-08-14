@@ -221,7 +221,7 @@ var getSurpriseStock=function(faceAnnotations){
 function checkRoles(role) {
   
   return function(req, res, next) {    
-    if (req.isAuthenticated() && req.user.role === role) {      
+    if (req.isAuthenticated() && req.user.role === role) {
       console.log('usuario autenticado' + req.user.role);
       return next();
     } else {

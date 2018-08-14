@@ -127,6 +127,7 @@ authRoutes.post("/signup", (req, res, next) => {
   const password = req.body.password;
   const email = req.body.email;
   const role = req.body.role;
+  const status = true;
 
   console.log(username, password, email);
 
@@ -147,7 +148,9 @@ authRoutes.post("/signup", (req, res, next) => {
     const newUser = new User({
       username,
       password: hashPass,
-      role: role
+      role: role,
+      status: true,
+      email: 'example@company.com'
     });
 
     newUser.save((err,user) => {
