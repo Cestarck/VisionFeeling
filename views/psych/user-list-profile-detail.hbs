@@ -1,15 +1,21 @@
-<h1> Detalle de usuario y sus sesiones </h1>
+<h1>Perfil emotivo del usuario</h1>
+<div class="row">
+    <div class="col-sm-8">
+        <canvas id="userChart"></canvas>
+    </div>
+</div>
 
+<div class="col-sm-8">
 <table class="table table-sm table-dark">
   <thead>
     <tr>
-      <th scope="col">joyLikelihood</th>
-      <th scope="col">sorrowLikelihood</th>
-      <th scope="col">angerLikelihood</th>
-      <th scope="col">surpriseLikelihood</th>
-      <th scope="col">underExposedLikelihood</th>
+      <th scope="col">Joy</th>
+      <th scope="col">Sorrow</th>
+      <th scope="col">Anger</th>
+      <th scope="col">Surprise</th>
+      <!--<th scope="col">underExposedLikelihood</th>
       <th scope="col">blurredLikelihood</th>
-      <th scope="col">headwearLikelihood</th>
+      <th scope="col">headwearLikelihood</th>-->
     </tr>
   </thead>
   <tbody>
@@ -18,11 +24,56 @@
         <td>{{ faceAnnotation.sorrowLikelihood }}</td>
         <td>{{ faceAnnotation.angerLikelihood }}</td>
         <td>{{ faceAnnotation.surpriseLikelihood }}</td>
-        <td>{{ faceAnnotation.underExposedLikelihood }}</td>
+        <!--<td>{{ faceAnnotation.underExposedLikelihood }}</td>
         <td>{{ faceAnnotation.blurredLikelihood }}</td>
-        <td>{{ faceAnnotation.headwearLikelihood }}</td>
+        <td>{{ faceAnnotation.headwearLikelihood }}</td>-->
       </tr>
     {{/each}}
   </tbody>
 </table>
+</div>
+
 <a href="/">Home</a>
+<script>
+  let hy=Object.keys(JSON.parse("{{joyStock}}".replace(/&quot;/g,'"')));
+  console.log(hy);
+  let stockDate =Object.keys(JSON.parse("{{joyStock}}".replace(/&quot;/g,'"')));
+    
+    
+    let joyStockLevel = Object.values(JSON.parse("{{joyStock}}".replace(/&quot;/g,'"')));
+    let sorrowStockLevel = Object.values(JSON.parse("{{sorrowStock}}".replace(/&quot;/g,'"')));
+    let angerStockLevel = Object.values(JSON.parse("{{angerStock}}".replace(/&quot;/g,'"')));
+    let surpriseStockLevel = Object.values(JSON.parse("{{surpriseStock}}".replace(/&quot;/g,'"')));
+    let ctx = document.getElementById('userChart').getContext('2d');
+    let chart = new Chart(ctx,{
+        type: 'line',
+        data: {
+            labels: stockDate,
+            datasets: [{
+                label: "Feliz",
+                
+                borderColor: 'rgb(255, 255, 0)',
+                data: joyStockLevel,
+            },
+            {
+                label: "Triste",
+                
+                borderColor: 'rgb(59, 131, 189)',
+                data: sorrowStockLevel,
+            },
+            {
+                label: "Enojado",
+                
+                borderColor: 'rgb(165, 32, 25)',
+                data: angerStockLevel,
+            },
+            {
+                label: "Sorprendido",
+                
+                borderColor: 'rgb(87, 166, 57)',
+                data: surpriseStockLevel,
+            }
+        ]
+        }
+    })
+</script>
