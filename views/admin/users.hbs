@@ -1,4 +1,4 @@
-<h1> Usuarios </h1>
+<h1> Users </h1>
 <table class="table table-sm">
   <thead class="thead-dark">
     <tr>
@@ -18,11 +18,11 @@
       {{#if user.status}}
         <tr>
       {{else}}
-        <tr class="bg-danger">
+        <tr class="table-danger">
       {{/if}}
         <td>{{ user.email }}</td>
         <td>{{ user.role }}</td>
-        <td>{{ user.status }}</td>        
+        <td>{{ user.status }}</td>
         <td>{{ user.updated_at }}</td>
         <td>{{ user.created_at }}</td>
         <th scope="row"><a href="/admin/user/{{this._id}}">{{this.username}}</a></th>
